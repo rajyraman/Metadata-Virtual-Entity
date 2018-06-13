@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>a3acff4d-feb6-4e0a-bf83-007781152730</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>VirtualEntity.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CustomQueryVisitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Definitions\ContextProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Definitions\Entities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\EntityExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ServiceExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\QueryVisitorHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RetrieveMultiplePluginBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RetrievePluginBase.cs" />
+  </ItemGroup>
+</Project>
