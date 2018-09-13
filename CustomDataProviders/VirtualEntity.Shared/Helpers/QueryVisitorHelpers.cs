@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using RYR.VE.DataProviders.Shared.Extensions;
@@ -69,7 +70,7 @@ namespace RYR.VE.DataProviders.Shared.Helpers
             var resultEntityCollection = new EntityCollection
             {
                 TotalRecordCount = totalCount,
-                MoreRecords = (totalCount / visitor.Count) > visitor.PageNumber
+                MoreRecords = Math.Ceiling(totalCount * 1.0 / visitor.Count) > visitor.PageNumber
             };
             return resultEntityCollection;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using RYR.VE.DataProviders.Shared.Definitions;
@@ -11,13 +12,15 @@ namespace RYR.VE.DataProviders.Shared.Helpers
 {
     internal class ObjectHelper
     {
-        public static void SetOutput(EntityCollection results, IEnumerable<Entity> resultEntityCollection, CustomQueryVisitor visitor,
+        public static void SetOutput(EntityCollection resultEntityCollection, List<Entity> results, CustomQueryVisitor visitor,
             IPluginExecutionContext context)
         {
-            results.Entities.AddRange(resultEntityCollection
-                .Skip(visitor.PageNumber == 1 ? 0 : visitor.PageNumber * visitor.Count)
-                .Take(visitor.Count).ToList());
-            context.OutputParameters[ContextProperties.Results] = results;
+            var pagedResults = results
+                .Skip((visitor.PageNumber - 1) * visitor.Count)
+                .Take(visitor.Count).ToList();
+            resultEntityCollection.Entities.AddRange(pagedResults);
+            resultEntityCollection.PagingCookie = $"<cookie page=\"{visitor.PageNumber}\"><ryr_entityid last=\"{pagedResults.Last().Id:B}\" first=\"{pagedResults.First().Id:B}\" /></cookie>";
+            context.OutputParameters[ContextProperties.Results] = resultEntityCollection;
         }
         public static Entity CreateEntity(EntityMetadata e)
         {
@@ -48,6 +51,7 @@ namespace RYR.VE.DataProviders.Shared.Helpers
                         [ryr_entity.ryr_isrenameable] = e.IsRenameable?.Value,
                         [ryr_entity.ryr_isvalidforadvancedfind] = e.IsValidForAdvancedFind.GetValueOrDefault(),
                         [ryr_entity.ryr_ischangedtrackingenabled] = e.ChangeTrackingEnabled.GetValueOrDefault(),
+                        [ryr_entity.ryr_isvisibleinmobileclient] = e.IsVisibleInMobileClient.Value,
                         [ryr_entity.ryr_primaryidattribute] = e.PrimaryIdAttribute,
                         [ryr_entity.ryr_primarynameattribute] = e.PrimaryNameAttribute
                     }

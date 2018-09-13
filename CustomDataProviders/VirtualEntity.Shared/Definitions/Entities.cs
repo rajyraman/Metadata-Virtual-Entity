@@ -44,5 +44,6 @@ namespace RYR.VE.DataProviders.Shared.Definitions
         public const string ryr_isquickcreateenabled = "ryr_isquickcreateenabled";
         public const string ryr_isrenameable = "ryr_isrenameable";
         public const string ryr_isvalidforadvancedfind = "ryr_isvalidforadvancedfind";
+        public const string ryr_isvisibleinmobileclient = "ryr_isvisibleinmobileclient";
     }
 }
